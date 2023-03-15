@@ -12,4 +12,5 @@ type User @model {
   id: ID!
   name: String!
   last_name: String
+  email: String
 }
