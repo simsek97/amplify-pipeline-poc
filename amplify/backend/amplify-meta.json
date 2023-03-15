@@ -11,5 +11,23 @@
       "StackId": "arn:aws:cloudformation:us-east-2:948537597984:stack/amplify-amplifypipelinepoc-dev-104325/bfd3d400-c33f-11ed-ad30-06375dc417b0",
       "AmplifyAppId": "d1x5b5mzb2s1wj"
     }
+  },
+  "api": {
+    "amplifypipelinepoc": {
+      "service": "AppSync",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "output": {
+        "authConfig": {
+          "defaultAuthentication": {
+            "authenticationType": "API_KEY",
+            "apiKeyConfig": {
+              "apiKeyExpirationDays": 7
+            }
+          },
+          "additionalAuthenticationProviders": []
+        }
+      }
+    }
   }
 }
