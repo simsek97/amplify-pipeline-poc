@@ -26,7 +26,15 @@
             }
           },
           "additionalAuthenticationProviders": []
-        }
+        },
+        "GraphQLAPIIdOutput": "3ycipcubgjbuhibn67qsp6ge44",
+        "GraphQLAPIEndpointOutput": "https://2cb6rph6cbawjpnsqunbebnjym.appsync-api.us-east-2.amazonaws.com/graphql",
+        "GraphQLAPIKeyOutput": "da2-zw2j2ynynfebhjz7c3uvticj6a"
+      },
+      "lastPushTimeStamp": "2023-06-06T17:49:56.121Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-amplifypipelinepoc-dev-104325-deployment/amplify-cfn-templates/api/cloudformation-template.json",
+        "logicalId": "apiamplifypipelinepoc"
       }
     }
   }

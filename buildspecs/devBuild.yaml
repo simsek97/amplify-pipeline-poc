@@ -1,0 +1,32 @@
+version: 0.2
+phases:
+  install:
+    runtime-versions:
+      nodejs: 16
+
+    commands:
+      - npm install -g @aws-amplify/cli
+      - npm install
+      - echo "{\"dev\":{\"configLevel\":\"project\",\"useProfile\":true,\"profileName\":\"default\"}}" > amplify/.config/local-aws-info.json
+      - cat amplify/.config/local-aws-info.json
+      - echo "{\"projectPath\":\"$(pwd)\",\"envName\":\"dev\"}" > amplify/.config/local-env-info.json
+      - cat amplify/.config/local-env-info.json
+      - mkdir ~/.aws
+      - echo "[profile default]" > ~/.aws/config
+      - echo "output = json" >> ~/.aws/config
+      - echo "region = $AWS_REGION" >> ~/.aws/config
+      - cat ~/.aws/config
+      - echo "[default]" > ~/.aws/credentials
+      - echo "aws_access_key_id = $AWS_ACCESS_KEY" >> ~/.aws/credentials
+      - echo "aws_secret_access_key = $AWS_SECRET_KEY" >> ~/.aws/credentials
+      - cat ~/.aws/credentials
+
+  build:
+    commands:
+      - amplify push -y --allow-destructive-graphql-schema-updates
+      - npm run build
+
+artifacts:
+  files:
+    - '**/*'
+  base-directory: 'build'
