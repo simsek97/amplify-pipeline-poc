@@ -1,0 +1,12 @@
+version: 0.2
+env:
+  shell: bash
+phases:
+  install:
+    commands:
+      - echo "install phase"
+  build:
+    commands:
+      - echo "Building template..."
+      - npm run build
+      - cdk deploy --require-approval never
