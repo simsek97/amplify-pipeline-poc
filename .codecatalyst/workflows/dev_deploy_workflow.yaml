@@ -1,4 +1,4 @@
-Name: Workflow_62a5
+Name: dev_deploy_workflow
 SchemaVersion: "1.0"
 
 # Optional - Set automatic triggers.
