@@ -37,7 +37,8 @@ Actions:
             amplify/.config/local-env-info.json
         - Run: cat amplify/.config/local-env-info.json
         - Run: npm run build
-        - Run: amplify push -y --allow-destructive-graphql-schema-updates
+        - Run: amplify pull -y
+        - Run: ls -lart
     Compute:
       Type: Lambda
       Fleet: Linux.x86-64.Large
