@@ -33,10 +33,10 @@ Actions:
             "{\"dev\":{\"configLevel\":\"project\",\"useProfile\":true,\"profileName\":\"default\"}}"
             > amplify/.config/local-aws-info.json
         - Run: cat amplify/.config/local-aws-info.json
-        - Run: echo "{\"projectPath\":\"$(pwd)\",\"envName\":\"dev\"}" >
+        - Run: echo "{\"projectPath\":\"$(pwd)\",\"envName\":\"dev-test\"}" >
             amplify/.config/local-env-info.json
         - Run: cat amplify/.config/local-env-info.json
-        - Run: echo "Build end"
+        - Run: amplify push -y --allow-destructive-graphql-schema-updates
     Compute:
       Type: Lambda
       Fleet: Linux.x86-64.Large
