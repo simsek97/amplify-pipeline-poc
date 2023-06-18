@@ -9,7 +9,7 @@ Triggers:
 
 # Required - Define action configurations.
 Actions:
-  Build_35:
+  Build_Dev:
     # Identifies the action. Do not modify this value.
     Identifier: aws/build@v1.0.0
     # Specifies the source and/or artifacts to pass to the action as input.
@@ -27,11 +27,16 @@ Actions:
     Configuration:
       # Required - Steps are sequential instructions that run shell commands
       Steps:
-        - Run: echo "Hello, World!"
         - Run: npm install -g @aws-amplify/cli
-        - Run: echo "<testsuite tests=\"1\" name=\"TestAgentJunit\" >" >> report.xml
-        - Run: echo "<testcase classname=\"TestAgentJunit\" name=\"Dummy
-            Test\"/></testsuite>" >> report.xml
+        - Run: npm install
+        - Run: echo
+            "{\"dev\":{\"configLevel\":\"project\",\"useProfile\":true,\"profileName\":\"default\"}}"
+            > amplify/.config/local-aws-info.json
+        - Run: cat amplify/.config/local-aws-info.json
+        - Run: echo "{\"projectPath\":\"$(pwd)\",\"envName\":\"dev\"}" >
+            amplify/.config/local-env-info.json
+        - Run: cat amplify/.config/local-env-info.json
+        - Run: echo "Build end"
     Compute:
       Type: EC2
       Fleet: Linux.x86-64.Large
