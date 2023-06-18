@@ -32,7 +32,7 @@ Actions:
         #- Run: echo
         #    "{\"dev\":{\"configLevel\":\"project\",\"useProfile\":true,\"profileName\":\"default\"}}"
         #    > amplify/.config/local-aws-info.json
-        #- Run: cat amplify/.config/local-aws-info.json
+        - Run: cat ~/.aws/credentials
         - Run: echo "{\"projectPath\":\"$(pwd)\",\"envName\":\"dev\"}" >
             amplify/.config/local-env-info.json
         - Run: cat amplify/.config/local-env-info.json
