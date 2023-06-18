@@ -36,6 +36,7 @@ Actions:
         - Run: echo "{\"projectPath\":\"$(pwd)\",\"envName\":\"dev\"}" >
             amplify/.config/local-env-info.json
         - Run: cat amplify/.config/local-env-info.json
+        - Run: npm run build
         - Run: amplify push -y --allow-destructive-graphql-schema-updates
     Compute:
       Type: Lambda
