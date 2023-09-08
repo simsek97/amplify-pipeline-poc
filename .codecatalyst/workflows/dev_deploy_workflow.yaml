@@ -17,7 +17,7 @@ Actions:
         - WorkflowSource # This specifies that the action requires this Workflow as a source
       Variables:
         - Name: AWS_ACCESS_KEY
-          Value: xxx
+          Value: ${Secrets.AWS_ACCESS_KEY}
     Outputs:
       # Optional; Automatically discover reports for popular test frameworks
       AutoDiscoverReports:
