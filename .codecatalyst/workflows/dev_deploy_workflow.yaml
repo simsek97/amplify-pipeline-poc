@@ -29,9 +29,9 @@ Actions:
         - Name: AMPLIFY
           Value: '{"projectName":"amplifypipelinepoc","envName":"dev","defaultEditor":"code"}'
         - Name: AWSCLOUDFORMATIONCONFIG
-          Value: '{"configLevel":"project","useProfile":false,"profileName":"default","accessKeyId":${AWS_ACCESS_KEY},"secretAccessKey":${AWS_SECRET_KEY},"region":${AWS_REGION}}'
+          Value: '{"configLevel":"project","useProfile":false,"profileName":"default","accessKeyId":$AWS_ACCESS_KEY,"secretAccessKey":$AWS_SECRET_KEY,"region":$AWS_REGION}'
         - Name: FRONTEND
-          Value: '{"frontend":"javascript","framework":"react","config":${REACTCONFIG}}'
+          Value: '{"frontend":"javascript","framework":"react","config":$REACTCONFIG}'
         - Name: PROVIDERS
           Value: '{"awscloudformation":$AWSCLOUDFORMATIONCONFIG}'
     Outputs:
@@ -39,7 +39,7 @@ Actions:
       AutoDiscoverReports:
         Enabled: true
         # Use as prefix for the report files
-        ReportNamePrefix: rpt
+        ReportNamePrefix: amplify-rpt
     # Defines the action's properties.
     Configuration:
       # Required - Steps are sequential instructions that run shell commands
@@ -47,7 +47,7 @@ Actions:
         - Run: npm install -g @aws-amplify/cli
         - Run: npm install
         - Run: echo ${PROVIDERS}
-        - Run: amplify init --amplify ${AMPLIFY} --frontend ${FRONTEND} --providers ${PROVIDERS} --yes
+        - Run: amplify init --amplify $AMPLIFY --frontend $FRONTEND --providers $PROVIDERS --yes
         - Run: amplify push -y --allow-destructive-graphql-schema-updates
     Compute:
       Type: Lambda
