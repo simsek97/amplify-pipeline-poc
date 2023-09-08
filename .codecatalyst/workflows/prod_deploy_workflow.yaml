@@ -1,10 +1,10 @@
-Name: dev_deploy_workflow
+Name: prod_deploy_workflow
 SchemaVersion: '1.0'
 
 Triggers:
   - Type: Push
     Branches:
-      - dev
+      - main
 
 Actions:
   Build_Dev:
@@ -18,7 +18,7 @@ Actions:
         - Name: AWS_SECRET_KEY
           Value: ${Secrets.AWS_SECRET_KEY}
         - Name: AMPLIFY_ENV
-          Value: dev
+          Value: prod
     Outputs:
       AutoDiscoverReports:
         Enabled: true
