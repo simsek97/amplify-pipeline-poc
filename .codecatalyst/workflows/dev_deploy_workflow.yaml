@@ -38,13 +38,13 @@ Actions:
     Inputs:
       Sources:
         - WorkflowSource
-      Variables:
-        - Name: AMPLIFY
-          Value: "{\"projectName\":\"amplifypipelinepoc\",\"envName\":\"dev\",\"defaultEditor\":\"code\"}"
-        - Name: FRONTEND
-          Value: "{\"frontend\":\"javascript\",\"framework\":\"react\",\"config\":${Setup_Dev.REACTCONFIG}}"
-        - Name: PROVIDERS
-          Value: "{\"awscloudformation\":${Setup_Dev.AWSCLOUDFORMATIONCONFIG}}"
+      # Variables:
+      #   - Name: AMPLIFY
+      #     Value: "{\"projectName\":\"amplifypipelinepoc\",\"envName\":\"dev\",\"defaultEditor\":\"code\"}"
+      #   - Name: FRONTEND
+      #     Value: "{\"frontend\":\"javascript\",\"framework\":\"react\",\"config\":${Setup_Dev.REACTCONFIG}}"
+      #   - Name: PROVIDERS
+      #     Value: "{\"awscloudformation\":${Setup_Dev.AWSCLOUDFORMATIONCONFIG}}"
     Outputs:
       AutoDiscoverReports:
         Enabled: true
@@ -53,11 +53,13 @@ Actions:
       Steps:
         - Run: npm install -g @aws-amplify/cli
         - Run: npm install
-        - Run: echo $AMPLIFY
-        - Run: echo $FRONTEND
-        - Run: echo $PROVIDERS
+        - Run: set -e
+        - Run: IFS='|'
+        - Run: AMPLIFY="{\"projectName\":\"amplifypipelinepoc\",\"envName\":\"dev\",\"defaultEditor\":\"code\"}"
+        - Run: FRONTEND="{\"frontend\":\"javascript\",\"framework\":\"react\",\"config\":${Setup_Dev.REACTCONFIG}}"
+        - Run: PROVIDERS="{\"awscloudformation\":${Setup_Dev.AWSCLOUDFORMATIONCONFIG}}"
         - Run: amplify init --amplify $AMPLIFY --frontend $FRONTEND --providers $PROVIDERS --yes
-        - Run: amplify push -y --allow-destructive-graphql-schema-updates
+        - Run: amplify push --allow-destructive-graphql-schema-updates --yes
     Compute:
       Type: Lambda
       Fleet: Linux.x86-64.Large
