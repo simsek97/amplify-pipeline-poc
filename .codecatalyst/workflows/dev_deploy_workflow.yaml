@@ -10,6 +10,8 @@ Actions:
   Setup_Dev:
     Identifier: aws/build@v1.0.0
     Inputs:
+      Sources:
+        - WorkflowSource
       Variables:
         - Name: REACTCONFIG
           Value: '{"SourceDir":"src","DistributionDir":"build","BuildCommand":"npm run-script build","StartCommand":"npm run-script start"}'
