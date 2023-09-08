@@ -33,7 +33,7 @@ Actions:
         - Name: FRONTEND
           Value: '{"frontend":"javascript","framework":"react","config":${REACTCONFIG}}'
         - Name: PROVIDERS
-          Value: '{"awscloudformation":${AWSCLOUDFORMATIONCONFIG}}'
+          Value: '{"awscloudformation":$AWSCLOUDFORMATIONCONFIG}'
     Outputs:
       # Optional; Automatically discover reports for popular test frameworks
       AutoDiscoverReports:
