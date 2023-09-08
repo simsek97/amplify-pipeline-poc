@@ -16,8 +16,22 @@ Actions:
       Sources:
         - WorkflowSource # This specifies that the action requires this Workflow as a source
       Variables:
+        - Name: AWS_ACCOUNT
+          Value: ${Secrets.AWS_ACCOUNT}
         - Name: AWS_ACCESS_KEY
           Value: ${Secrets.AWS_ACCESS_KEY}
+        - Name: AWS_SECRET_KEY
+          Value: ${Secrets.AWS_SECRET_KEY}
+        - Name: AWS_REGION
+          Value: 'us-east-2'
+        - Name: REACTCONFIG
+          Value: '{"SourceDir":"src","DistributionDir":"build","BuildCommand":"npm run-script build","StartCommand":"npm run-script start"}'
+        - Name: AMPLIFY
+          Value: '{"projectName":"amplifypipelinepoc","envName":"dev","defaultEditor":"code"}'
+        - Name: AWSCLOUDFORMATIONCONFIG
+          Value: '{"configLevel":"project","useProfile":false,"profileName":"default","accessKeyId":$AWS_ACCESS_KEY,"secretAccessKey":$AWS_SECRET_KEY,"region":$AWS_REGION}'
+        - Name: FRONTEND
+          Value: '{"frontend":"javascript","framework":"react","config":$REACTCONFIG}'
     Outputs:
       # Optional; Automatically discover reports for popular test frameworks
       AutoDiscoverReports:
@@ -31,12 +45,13 @@ Actions:
         - Run: npm install -g @aws-amplify/cli
         - Run: npm install
         - Run: echo ${AWS_ACCESS_KEY}
-        # - Run: amplify push -y --allow-destructive-graphql-schema-updates
+        - Run: amplify init --amplify $AMPLIFY --frontend $FRONTEND --providers $PROVIDERS --yes
+        - Run: amplify push -y --allow-destructive-graphql-schema-updates
     Compute:
       Type: Lambda
       Fleet: Linux.x86-64.Large
     Environment:
       Connections:
         - Role: CodeCatalystPreviewDevelopmentAdministrator-pm6byj
-          Name: '948537597984'
+          Name: $AWS_ACCOUNT
       Name: Dev
