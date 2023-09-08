@@ -1,9 +1,13 @@
 Name: dev_deploy_workflow
 <<<<<<< HEAD
+<<<<<<< HEAD
 SchemaVersion: '1.0'
 
 =======
 SchemaVersion: "1.0"
+=======
+SchemaVersion: '1.0'
+>>>>>>> f1117dd (Update workflows)
 
 # Optional - Set automatic triggers.
 >>>>>>> 5661260 (Update dev_deploy_workflow.yaml)
@@ -66,11 +70,27 @@ Actions:
     Configuration:
       # Required - Steps are sequential instructions that run shell commands
       Steps:
+<<<<<<< HEAD
         - Run: echo "Hello, World!"
         - Run: pwd
         - Run: echo "<testsuite tests=\"1\" name=\"TestAgentJunit\" >" >> report.xml
         - Run: echo "<testcase classname=\"TestAgentJunit\" name=\"Dummy
             Test\"/></testsuite>" >> report.xml
+=======
+        - Run: npm install -g @aws-amplify/cli
+        - Run: npm install
+        #- Run: echo
+        #    "{\"dev\":{\"configLevel\":\"project\",\"useProfile\":true,\"profileName\":\"default\"}}"
+        #    > amplify/.config/local-aws-info.json
+        # - Run: aws sts get-caller-identity
+        # - Run: amplify init --amplify --yes
+        # - Run: echo "{\"projectPath\":\"$(pwd)\",\"envName\":\"dev\"}" >
+        #     amplify/.config/local-env-info.json
+        # - Run: cat amplify/.config/local-env-info.json
+        - Run: npm run build
+        # - Run: amplify pull --yes
+        # - Run: ls -lart
+>>>>>>> f1117dd (Update workflows)
     Compute:
       Type: EC2
 >>>>>>> 5661260 (Update dev_deploy_workflow.yaml)
@@ -79,8 +99,12 @@ Actions:
       Connections:
         - Role: CodeCatalystPreviewDevelopmentAdministrator-pm6byj
 <<<<<<< HEAD
+<<<<<<< HEAD
           Name: '948537597984'
 =======
           Name: "948537597984"
 >>>>>>> 5661260 (Update dev_deploy_workflow.yaml)
+=======
+          Name: '948537597984'
+>>>>>>> f1117dd (Update workflows)
       Name: Dev
