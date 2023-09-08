@@ -21,6 +21,10 @@ Actions:
       Variables:
         - REACTCONFIG
         - AWSCLOUDFORMATIONCONFIG
+    Configuration:
+      Steps:
+        - Run: echo $REACTCONFIG
+        - Run: echo $AWSCLOUDFORMATIONCONFIG
     Compute:
       Type: Lambda
       Fleet: Linux.x86-64.Large
