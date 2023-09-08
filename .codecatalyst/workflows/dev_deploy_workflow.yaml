@@ -7,32 +7,6 @@ Triggers:
       - dev
 
 Actions:
-  Setup_Dev:
-    Identifier: aws/build@v1.0.0
-    Inputs:
-      Sources:
-        - WorkflowSource
-      Variables:
-        - Name: REACTCONFIG
-          Value: "{\"SourceDir\":\"src\",\"DistributionDir\":\"build\",\"BuildCommand\":\"npm run-script build\",\"StartCommand\":\"npm run-script start\"}"
-        - Name: AWSCLOUDFORMATIONCONFIG
-          Value: "{\"configLevel\":\"project\",\"useProfile\":false,\"profileName\":\"default\",\"accessKeyId\":${Secrets.AWS_ACCESS_KEY},\"secretAccessKey\":${Secrets.AWS_SECRET_KEY},\"region\":\"us-east-2\"}"
-    Outputs:
-      Variables:
-        - REACTCONFIG
-        - AWSCLOUDFORMATIONCONFIG
-    Configuration:
-      Steps:
-        - Run: echo $REACTCONFIG
-        - Run: echo $AWSCLOUDFORMATIONCONFIG
-    Compute:
-      Type: Lambda
-      Fleet: Linux.x86-64.Large
-    Environment:
-      Connections:
-        - Role: CodeCatalystPreviewDevelopmentAdministrator-pm6byj
-          Name: '948537597984'
-      Name: Dev
   Build_Dev:
     Identifier: aws/build@v1.0.0
     Inputs:
@@ -55,9 +29,11 @@ Actions:
         - Run: npm install
         - Run: set -e
         - Run: IFS='|'
+        - Run: REACTCONFIG="{\"SourceDir\":\"src\",\"DistributionDir\":\"build\",\"BuildCommand\":\"npm run-script build\",\"StartCommand\":\"npm run-script start\"}"
+        - Run: AWSCLOUDFORMATIONCONFIG="{\"configLevel\":\"project\",\"useProfile\":false,\"profileName\":\"default\",\"accessKeyId\":${Secrets.AWS_ACCESS_KEY},\"secretAccessKey\":${Secrets.AWS_SECRET_KEY},\"region\":\"us-east-2\"}"
         - Run: AMPLIFY="{\"projectName\":\"amplifypipelinepoc\",\"envName\":\"dev\",\"defaultEditor\":\"code\"}"
-        - Run: FRONTEND="{\"frontend\":\"javascript\",\"framework\":\"react\",\"config\":${Setup_Dev.REACTCONFIG}}"
-        - Run: PROVIDERS="{\"awscloudformation\":${Setup_Dev.AWSCLOUDFORMATIONCONFIG}}"
+        - Run: FRONTEND="{\"frontend\":\"javascript\",\"framework\":\"react\",\"config\":$REACTCONFIG}"
+        - Run: PROVIDERS="{\"awscloudformation\":$AWSCLOUDFORMATIONCONFIG}"
         - Run: amplify init --amplify $AMPLIFY --frontend $FRONTEND --providers $PROVIDERS --yes
         - Run: amplify push --allow-destructive-graphql-schema-updates --yes
     Compute:
