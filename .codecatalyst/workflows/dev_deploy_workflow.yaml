@@ -53,5 +53,5 @@ Actions:
     Environment:
       Connections:
         - Role: CodeCatalystPreviewDevelopmentAdministrator-pm6byj
-          Name: ${Secrets.AWS_ACCOUNT}
+          Name: '948537597984'
       Name: Dev
