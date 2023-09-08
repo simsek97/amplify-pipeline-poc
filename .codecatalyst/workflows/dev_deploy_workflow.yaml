@@ -1,13 +1,11 @@
 Name: dev_deploy_workflow
 SchemaVersion: '1.0'
 
-# Optional - Set automatic triggers.
 Triggers:
   - Type: Push
     Branches:
       - dev
 
-# Required - Define action configurations.
 Actions:
   Build_Dev:
     # Identifies the action. Do not modify this value.
@@ -29,14 +27,12 @@ Actions:
       Steps:
         - Run: npm install -g @aws-amplify/cli
         - Run: npm install
-        - Run: echo
-            "{\"dev\":{\"configLevel\":\"project\",\"useProfile\":true,\"profileName\":\"default\"}}"
-            > amplify/.config/local-aws-info.json
-        - Run: cat amplify/.config/local-aws-info.json
-        - Run: echo "{\"projectPath\":\"$(pwd)\",\"envName\":\"dev-test\"}" >
-            amplify/.config/local-env-info.json
-        - Run: cat amplify/.config/local-env-info.json
-        - Run: amplify push -y --allow-destructive-graphql-schema-updates
+        # - Run: echo "{\"dev\":{\"configLevel\":\"project\",\"useProfile\":true,\"profileName\":\"default\"}}" > amplify/.config/local-aws-info.json
+        # - Run: cat amplify/.config/local-aws-info.json
+        # - Run: echo "{\"projectPath\":\"$(pwd)\",\"envName\":\"dev-test\"}" >
+        #     amplify/.config/local-env-info.json
+        # - Run: cat amplify/.config/local-env-info.json
+        # - Run: amplify push -y --allow-destructive-graphql-schema-updates
     Compute:
       Type: Lambda
       Fleet: Linux.x86-64.Large
