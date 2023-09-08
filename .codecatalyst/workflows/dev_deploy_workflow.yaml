@@ -14,9 +14,9 @@ Actions:
         - WorkflowSource
       Variables:
         - Name: REACTCONFIG
-          Value: '{"SourceDir":"src","DistributionDir":"build","BuildCommand":"npm run-script build","StartCommand":"npm run-script start"}'
+          Value: "{\"SourceDir\":\"src\",\"DistributionDir\":\"build\",\"BuildCommand\":\"npm run-script build\",\"StartCommand\":\"npm run-script start\"}"
         - Name: AWSCLOUDFORMATIONCONFIG
-          Value: '{"configLevel":"project","useProfile":false,"profileName":"default","accessKeyId":${Secrets.AWS_ACCESS_KEY},"secretAccessKey":${Secrets.AWS_SECRET_KEY},"region":"us-east-2"}'
+          Value: "{\"configLevel\":\"project\",\"useProfile\":false,\"profileName\":\"default\",\"accessKeyId\":${Secrets.AWS_ACCESS_KEY},\"secretAccessKey\":${Secrets.AWS_SECRET_KEY},\"region\":\"us-east-2\"}"
     Outputs:
       Variables:
         - REACTCONFIG
@@ -40,11 +40,11 @@ Actions:
         - WorkflowSource
       Variables:
         - Name: AMPLIFY
-          Value: '{"projectName":"amplifypipelinepoc","envName":"dev","defaultEditor":"code"}'
+          Value: "{\"projectName\":\"amplifypipelinepoc\",\"envName\":\"dev\",\"defaultEditor\":\"code\"}"
         - Name: FRONTEND
-          Value: '{"frontend":"javascript","framework":"react","config":${Setup_Dev.REACTCONFIG}}'
+          Value: "{\"frontend\":\"javascript\",\"framework\":\"react\",\"config\":${Setup_Dev.REACTCONFIG}}"
         - Name: PROVIDERS
-          Value: '{"awscloudformation":${Setup_Dev.AWSCLOUDFORMATIONCONFIG}}'
+          Value: "{\"awscloudformation\":${Setup_Dev.AWSCLOUDFORMATIONCONFIG}}"
     Outputs:
       AutoDiscoverReports:
         Enabled: true
@@ -53,10 +53,10 @@ Actions:
       Steps:
         - Run: npm install -g @aws-amplify/cli
         - Run: npm install
-        - Run: AMPLIFY_STRING=$AMPLIFY
-        - Run: FRONTEND_STRING=$FRONTEND
-        - Run: PROVIDERS_STRING=$PROVIDERS
-        - Run: amplify init --amplify $AMPLIFY_STRING --frontend $FRONTEND_STRING --providers $PROVIDERS_STRING --yes
+        - Run: echo $AMPLIFY
+        - Run: echo $FRONTEND
+        - Run: echo $PROVIDERS
+        - Run: amplify init --amplify $AMPLIFY --frontend $FRONTEND --providers $PROVIDERS --yes
         - Run: amplify push -y --allow-destructive-graphql-schema-updates
     Compute:
       Type: Lambda
