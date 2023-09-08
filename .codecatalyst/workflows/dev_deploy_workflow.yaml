@@ -30,6 +30,7 @@ Actions:
       Steps:
         - Run: npm install -g @aws-amplify/cli
         - Run: npm install
+        - Run: echo ${AWS_ACCESS_KEY}
         # - Run: amplify push -y --allow-destructive-graphql-schema-updates
     Compute:
       Type: Lambda
@@ -37,5 +38,5 @@ Actions:
     Environment:
       Connections:
         - Role: CodeCatalystPreviewDevelopmentAdministrator-pm6byj
-          Name: "948537597984"
+          Name: '948537597984'
       Name: Dev
