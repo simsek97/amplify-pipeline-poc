@@ -7,42 +7,35 @@ Triggers:
       - dev
 
 Actions:
-  Build_Dev:
-    # Identifies the action. Do not modify this value.
+  Setup_Dev:
     Identifier: aws/build@v1.0.0
-    # Specifies the source and/or artifacts to pass to the action as input.
     Inputs:
-      # Optional
-      Sources:
-        - WorkflowSource # This specifies that the action requires this Workflow as a source
       Variables:
-        - Name: AWS_ACCOUNT
-          Value: ${Secrets.AWS_ACCOUNT}
-        - Name: AWS_ACCESS_KEY
-          Value: ${Secrets.AWS_ACCESS_KEY}
-        - Name: AWS_SECRET_KEY
-          Value: ${Secrets.AWS_SECRET_KEY}
-        - Name: AWS_REGION
-          Value: 'us-east-2'
         - Name: REACTCONFIG
           Value: '{"SourceDir":"src","DistributionDir":"build","BuildCommand":"npm run-script build","StartCommand":"npm run-script start"}'
+        - Name: AWSCLOUDFORMATIONCONFIG
+          Value: '{"configLevel":"project","useProfile":false,"profileName":"default","accessKeyId":${Secrets.AWS_ACCESS_KEY},"secretAccessKey":${Secrets.AWS_SECRET_KEY},"region":"us-east-2"}'
+    Outputs:
+      Variables:
+        - REACTCONFIG
+        - AWSCLOUDFORMATIONCONFIG
+  Build_Dev:
+    Identifier: aws/build@v1.0.0
+    Inputs:
+      Sources:
+        - WorkflowSource
+      Variables:
         - Name: AMPLIFY
           Value: '{"projectName":"amplifypipelinepoc","envName":"dev","defaultEditor":"code"}'
-        - Name: AWSCLOUDFORMATIONCONFIG
-          Value: '{"configLevel":"project","useProfile":false,"profileName":"default","accessKeyId":$AWS_ACCESS_KEY,"secretAccessKey":$AWS_SECRET_KEY,"region":$AWS_REGION}'
         - Name: FRONTEND
-          Value: '{"frontend":"javascript","framework":"react","config":$REACTCONFIG}'
+          Value: '{"frontend":"javascript","framework":"react","config":${Setup_Dev.REACTCONFIG}}'
         - Name: PROVIDERS
-          Value: '{"awscloudformation":$AWSCLOUDFORMATIONCONFIG}'
+          Value: '{"awscloudformation":${Setup_Dev.AWSCLOUDFORMATIONCONFIG}}'
     Outputs:
-      # Optional; Automatically discover reports for popular test frameworks
       AutoDiscoverReports:
         Enabled: true
-        # Use as prefix for the report files
         ReportNamePrefix: amplify-rpt
-    # Defines the action's properties.
     Configuration:
-      # Required - Steps are sequential instructions that run shell commands
       Steps:
         - Run: npm install -g @aws-amplify/cli
         - Run: npm install
