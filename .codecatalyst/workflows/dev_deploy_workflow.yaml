@@ -21,6 +21,14 @@ Actions:
       Variables:
         - REACTCONFIG
         - AWSCLOUDFORMATIONCONFIG
+    Compute:
+      Type: Lambda
+      Fleet: Linux.x86-64.Large
+    Environment:
+      Connections:
+        - Role: CodeCatalystPreviewDevelopmentAdministrator-pm6byj
+          Name: '948537597984'
+      Name: Dev
   Build_Dev:
     Identifier: aws/build@v1.0.0
     Inputs:
