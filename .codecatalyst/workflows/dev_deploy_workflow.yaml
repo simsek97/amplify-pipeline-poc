@@ -45,7 +45,7 @@ Actions:
         - Run: npm install -g @aws-amplify/cli
         - Run: npm install
         - Run: echo ${AWS_ACCESS_KEY}
-        - Run: amplify init --amplify ${AMPLIFY} --frontend ${FRONTEND} --providers ${PROVIDERS} --yes
+        - Run: amplify init --amplify ${AMPLIFY} --frontend ${FRONTEND} --providers ${PROVIDERS}
         - Run: amplify push -y --allow-destructive-graphql-schema-updates
     Compute:
       Type: Lambda
